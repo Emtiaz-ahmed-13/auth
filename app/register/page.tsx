@@ -10,11 +10,16 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { getSession } from "@/lib/getSession";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
-const Register = () => {
+const Register = async () => {
+  const session = await getSession();
+  if (session?.user) {
+    redirect("/");
+  }
   const router = useRouter();
   const [formData, setFormData] = useState({
     firstName: "",

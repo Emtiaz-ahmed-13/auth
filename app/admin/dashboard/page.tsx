@@ -1,7 +1,14 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { getSession } from "@/lib/getSession";
 import { CreditCard, DollarSign, TrendingUp, Users } from "lucide-react";
+import { redirect } from "next/navigation";
 
-const Dashboard = () => {
+const Dashboard = async () => {
+  const session = await getSession();
+  const user = session?.user;
+  if (!user) {
+    redirect("/");
+  }
   return (
     <div className="flex min-h-screen bg-gray-100 dark:bg-gray-950">
       <div className="flex-1 p-6">
